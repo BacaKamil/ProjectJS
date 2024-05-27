@@ -85,8 +85,3 @@ button:hover {
     color: white;
 }
 
-@media only screen and (max-width: 470px) {
-    #weather-container {
-        max-width: 430px;
-    }
-}
