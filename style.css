@@ -97,5 +97,6 @@ button:hover {
 
     .daily-item{
         margin-right: 2px;
+        align-items: flex-start;
     }
 }
