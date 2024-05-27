@@ -12,6 +12,7 @@ function getWeather() {
 
     const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&lang=pl`;    
     console.log(currentWeatherUrl);
+
     fetch(currentWeatherUrl)
         .then(response => response.json())
         .then(data => {
@@ -29,7 +30,7 @@ function getWeather() {
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Error fetching data. Please try again.');
+            alert('Błąd API! Spróbuj ponownie później.');
         });
 }
 
@@ -67,7 +68,17 @@ function displayWeather(data) {
         weatherIcon.alt = description;
 
         showImage();
+
+        const weatherContainer = document.getElementById('weather-container');
+
+        if (iconCode.includes('n')) {
+            weatherContainer.style.background = 'rgb(154,198,199)';
+            weatherContainer.style.background = 'radial-gradient(circle, rgba(154,198,199,1) 0%, rgba(74,72,231,1) 100%)';
+        } else {
+            weatherContainer.style.background = 'rgb(174,237,238)';
+            weatherContainer.style.background = 'radial-gradient(circle, rgba(174,237,238,1) 0%, rgba(149,148,233,1) 100%)';
     }
+}
 }
 
 function displayDailyForecast(dailyData) {
