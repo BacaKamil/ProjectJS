@@ -11,7 +11,6 @@ body {
 #weather-container {
     background: rgba(255, 255, 255, 0.3);
     padding: 20px;
-    max-width: 470px;
     border-radius: 15px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -85,13 +84,16 @@ button:hover {
     color: white;
 }
 
+#weather-container {
+    max-width: 470px;
+}
+
 @media only screen and (max-width: 768px) {
     #weather-container {
-        max-width: 340px;
+        max-width: 320px;
     }
 
     .daily-item{
         margin-right: 2px;
-        align-items: flex-start;
     }
 }
