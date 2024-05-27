@@ -51,7 +51,7 @@ function displayWeather(data) {
         const iconCode = data.weather[0].icon;
 
         //const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
-        const iconUrl = "./icons/" + iconCode + ".svg";
+        const iconUrl = "../icons/" + iconCode + ".svg";
 
         const temperatureHTML = `
             <p>${temperature}°C</p>
@@ -83,12 +83,12 @@ function displayDailyForecast(dailyData) {
         const iconCode = item.weather[0].icon;
 
         //const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
-        const iconUrl = "./icons/" + iconCode + ".svg";
+        const iconUrl = "../icons/" + iconCode + ".svg";
 
         const dailyItemHtml = `
             <div class="daily-item">
                 <span>${day}.${month}</span>
-                <img src="${iconUrl}" alt="Daily Weather Icon">
+                <img src="${iconUrl}">
                 <span>${temperature}°C</span>
             </div>
         `;
