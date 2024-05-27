@@ -92,7 +92,7 @@ button:hover {
 /* Styles for phones */
 @media only screen and (max-width: 768px) {
     #weather-container {
-        max-width: 280px;
+        max-width: 300px;
     }
 
     .daily-item{
