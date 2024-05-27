@@ -72,8 +72,8 @@ function displayWeather(data) {
         const weatherContainer = document.getElementById('weather-container');
 
         if (iconCode.includes('n')) {
-            weatherContainer.style.background = 'rgb(154,198,199)';
-            weatherContainer.style.background = 'radial-gradient(circle, rgba(154,198,199,1) 0%, rgba(74,72,231,1) 100%)';
+            weatherContainer.style.background = 'rgb(25,19,19)';
+            weatherContainer.style.background = 'radial-gradient(circle, rgba(25,19,19,1) 0%, rgba(6,6,157,1) 100%)';
         } else {
             weatherContainer.style.background = 'rgb(174,237,238)';
             weatherContainer.style.background = 'radial-gradient(circle, rgba(174,237,238,1) 0%, rgba(149,148,233,1) 100%)';
