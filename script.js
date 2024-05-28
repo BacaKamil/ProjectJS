@@ -1,32 +1,40 @@
+document.getElementById('searchButton').addEventListener('click', getWeather);
+document.getElementById('localization').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        getWeather();
+    }
+});
+
 function getWeather() {
     const apiKey = '8a284cdeab1fbfc8fec63de3156c8c95';
-    const city = document.getElementById('city').value;
+    const localization = document.getElementById('localization').value;
 
-    if (!city) {
-        alert('Nie podano miasta!');
+    if (!localization) {
+        alert('Nie podano lokalizacji!');
         return;
     }
   
     let lat = 0;
     let lon = 0;
 
-    const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&lang=pl`;    
+    const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${localization}&appid=${apiKey}&lang=pl`;    
     console.log(currentWeatherUrl);
 
     fetch(currentWeatherUrl)
         .then(response => response.json())
-        .then(data => {
-            lat = data.coord.lat;
-            lon = data.coord.lon;
-            displayWeather(data);
+        .then(currentWeatherData => {
+            lat = currentWeatherData.coord.lat;
+            lon = currentWeatherData.coord.lon;
+            displayWeather(currentWeatherData);
 
             const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-    
+            console.log(forecastUrl);
+
             return fetch(forecastUrl);
         })
         .then(response => response.json())
-        .then(data => {
-            displayDailyForecast(data.list);
+        .then(dailyWeatherData => {
+            displayDailyForecast(dailyWeatherData.list);
         })
         .catch(error => {
             console.error('Error:', error);
@@ -34,24 +42,23 @@ function getWeather() {
         });
 }
 
-function displayWeather(data) {
-    const tempDivInfo = document.getElementById('temp-div');
-    const weatherInfoDiv = document.getElementById('weather-info');
-    const weatherIcon = document.getElementById('weather-icon');
-    const dailyForecastDiv = document.getElementById('daily-weather');
+function displayWeather(currentWeatherData) {
+    const temperatureInfoDiv = document.getElementById('temperatureInfo');
+    const weatherInfoDiv = document.getElementById('weatherInfo');
+    const weatherIcon = document.getElementById('weatherIcon');
+    const dailyForecastDiv = document.getElementById('dailyWeather');
 
     weatherInfoDiv.innerHTML = '';
     dailyForecastDiv.innerHTML = '';
-    tempDivInfo.innerHTML = '';
+    temperatureInfoDiv.innerHTML = '';
 
-    if (data.cod === '404') {
-        weatherInfoDiv.innerHTML = `<p>${data.message}</p>`;
+    if (currentWeatherData.cod === '404') {
+        weatherInfoDiv.innerHTML = `<p>${currentWeatherData.message}</p>`;
     } else {
-        const temperature = Math.round(data.main.temp - 273.15);
-        const description = data.weather[0].description.toString().charAt(0).toUpperCase() + data.weather[0].description.toString().slice(1);
-        const iconCode = data.weather[0].icon;
+        const temperature = Math.round(currentWeatherData.main.temp - 273.15);
+        const description = currentWeatherData.weather[0].description.toString().charAt(0).toUpperCase() + currentWeatherData.weather[0].description.toString().slice(1);
+        const iconCode = currentWeatherData.weather[0].icon;
 
-        //const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
         const iconUrl = "../icons/" + iconCode + ".svg";
 
         const temperatureHTML = `
@@ -62,14 +69,14 @@ function displayWeather(data) {
             <p>${description}</p>
         `;
 
-        tempDivInfo.innerHTML = temperatureHTML;
+        temperatureInfoDiv.innerHTML = temperatureHTML;
         weatherInfoDiv.innerHTML = weatherHtml;
         weatherIcon.src = iconUrl;
         weatherIcon.alt = description;
 
         showImage();
 
-        const weatherContainer = document.getElementById('weather-container');
+        const weatherContainer = document.getElementById('weatherContainer');
 
         if (iconCode.includes('n')) {
             weatherContainer.style.background = 'rgb(25,19,19)';
@@ -77,29 +84,28 @@ function displayWeather(data) {
         } else {
             weatherContainer.style.background = 'rgb(174,237,238)';
             weatherContainer.style.background = 'radial-gradient(circle, rgba(174,237,238,1) 0%, rgba(149,148,233,1) 100%)';
+        }
     }
 }
-}
 
-function displayDailyForecast(dailyData) {
-    const dailyForecastDiv = document.getElementById('daily-weather');
+function displayDailyForecast(dailyWeatherData) {
+    const dailyForecastDiv = document.getElementById('dailyWeather');
 
-    const filteredData = dailyData.filter((item, index) => index % 7 === 0);
+    const filteredData = dailyWeatherData.filter((item, index) => index % 8 === 0);
 
-    filteredData.slice(1, 6).forEach(item => {
+    filteredData.forEach(item => {
         const date = new Date(item.dt * 1000);
         const day = date.getDate();
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
         const temperature = Math.round(item.main.temp - 273.15);
         const iconCode = item.weather[0].icon;
 
-        //const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
         const iconUrl = "../icons/" + iconCode + ".svg";
-
+        
         const dailyItemHtml = `
             <div class="daily-item">
                 <span>${day}.${month}</span>
-                <img src="${iconUrl}" alt="">
+                <img src="${iconUrl}">
                 <span>${temperature}°C</span>
             </div>
         `;
@@ -109,6 +115,6 @@ function displayDailyForecast(dailyData) {
 }
 
 function showImage() {
-    const weatherIcon = document.getElementById('weather-icon');
+    const weatherIcon = document.getElementById('weatherIcon');
     weatherIcon.style.display = 'block';
 }

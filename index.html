@@ -7,18 +7,18 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="weather-container">
+    <div id="weatherContainer">
         <h1>Prognoza pogody</h1>
-        <input type="text" id="city" placeholder="Wpisz miasto">    
-        <button onclick="getWeather()">Szukaj</button>
+        <input type="text" id="localization" placeholder="Wpisz lokalizację">    
+        <button id="searchButton">Szukaj</button>
 
-        <img id="weather-icon" alt="">
+        <img id="weatherIcon">
 
-        <div id="temp-div"></div>
+        <div id="temperatureInfo"></div>
 
-        <div id="weather-info"></div>
+        <div id="weatherInfo"></div>
         
-        <div id="daily-weather"></div>
+        <div id="dailyWeather"></div>
     </div>
     <script src="script.js"></script>
 </body>
