@@ -1,6 +1,6 @@
 body {
     background: rgb(90, 88, 88);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI';
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,7 +76,7 @@ h1, label, p {
     justify-content: space-between;
 }
 
-.daily-item {
+.dailyItem {
     flex: 0 0 auto;
     width: 80px;
     display: flex;
@@ -95,7 +95,7 @@ h1, label, p {
         max-width: 320px;
     }
 
-    .daily-item{
+    .dailyItem{
         margin-right: 2px;
     }
 }

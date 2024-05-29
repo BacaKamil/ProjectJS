@@ -103,7 +103,7 @@ function displayDailyForecast(dailyWeatherData) {
         const iconUrl = "../icons/" + iconCode + ".svg";
         
         const dailyItemHtml = `
-            <div class="daily-item">
+            <div class="dailyItem">
                 <span>${day}.${month}</span>
                 <img src="${iconUrl}">
                 <span>${temperature}°C</span>
